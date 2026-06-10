@@ -2,11 +2,11 @@
 
 Translate your i18n files directly in GitHub Actions — no translation platform required.
 
-This action updates or checks localization files with the [doloc](https://doloc.io) API. It supports the same developer-first workflow as the CLI/curl examples: keep source files in your repository, run doloc when strings change, and decide yourself whether to commit, inspect, artifact, or open a pull request with the resulting diff.
+This action updates or checks localization files with the [doloc](https://doloc.io?utm_source=github&utm_medium=gh-action&utm_campaign=readme) API. It supports the same developer-first workflow as the CLI/curl examples: keep source files in your repository, run doloc when strings change, and decide yourself whether to commit, inspect, artifact, or open a pull request with the resulting diff.
 
 ## Quick start
 
-1. Create a doloc API token at <https://doloc.io/account>.
+1. Create a doloc API token at [doloc.io/account](https://doloc.io/account?utm_source=github&utm_medium=gh-action&utm_campaign=readme).
 2. Add it to your repository secrets as `DOLOC_API_TOKEN`.
 3. Pick the workflow that matches your team:
 
@@ -147,6 +147,18 @@ For single-file formats such as XLIFF, the target file itself contains the trans
       app/src/main/res/values-fr/strings.xml:fr
 ```
 
+## Flutter ARB example
+
+```yaml
+- uses: doloc-io/doloc-action@v1
+  with:
+    token: ${{ secrets.DOLOC_API_TOKEN }}
+    source: lib/l10n/app_en.arb
+    targets: |
+      lib/l10n/app_de.arb
+      lib/l10n/app_fr.arb
+```
+
 
 ## Target mappings
 
@@ -166,7 +178,7 @@ targets: |
   src/lang/en-GB.json => src/lang/fr.json:fr
 ```
 
-The target language suffix is optional when the language can be inferred from the file name or is included in the file contents (e.g. XLIFF) or when you provide `target-lang` in single-target mode.
+The target language suffix (`:de`) is optional when the language can be inferred from the file name or is included in the file contents (e.g. XLIFF) or when you provide `target-lang` in single-target mode.
 
 ## doloc API options
 
@@ -197,7 +209,7 @@ You can also pass complex DNF option values exactly as you would in a curl query
       newState=translated
 ```
 
-See the [doloc options reference](https://doloc.io/getting-started/options/) for supported query parameters and format-specific option links.
+See the [doloc options reference](https://doloc.io/getting-started/options/?utm_source=github&utm_medium=gh-action&utm_campaign=readme) for supported query parameters and format-specific option links.
 
 ## Open a translation PR
 
@@ -272,7 +284,7 @@ For normal automation, prefer `push` or `pull_request` triggers with path filter
 | `source-lang` | No | | Source language, passed as `sourceLang` to the API. |
 | `target-lang` | No | | Target language for single-target mode. |
 | `mode` | No | `update` | `update` or `check`. |
-| `options` | No | | Additional doloc API query parameters, one per line. See [doloc options](https://doloc.io/getting-started/options/). |
+| `options` | No | | Additional doloc API query parameters, one per line. See [doloc options](https://doloc.io/getting-started/options/?utm_source=github&utm_medium=gh-action&utm_campaign=readme). |
 | `fail-on-change` | No | `true` in check mode, `false` in update mode | Fail if changes are produced or would be produced. |
 
 At least one of `target` or `targets` is required.
@@ -312,7 +324,12 @@ Add `token: ${{ secrets.DOLOC_API_TOKEN }}` and make sure the secret exists in t
 
 ### Target file not found
 
-Create the target file before running the action. For JSON, `{}` is usually enough for a new target file. For Android XML or XLIFF, create a valid empty or initial localization file.
+Create the target file before running the action. For JSON, 
+```json
+{
+}
+``` 
+is usually enough for a new target file. For Android XML or XLIFF, create a valid empty or initial localization file.
 
 ### Check mode failed
 
@@ -320,4 +337,4 @@ Run the same mapping in update mode, commit the changed files, and re-run CI.
 
 ### API authentication failed
 
-Create a new token at <https://doloc.io/account> and update the `DOLOC_API_TOKEN` secret.
+Create a new token at [doloc.io/account](https://doloc.io/account?utm_source=github&utm_medium=gh-action&utm_campaign=readme) and update the `DOLOC_API_TOKEN` secret.
