@@ -31511,16 +31511,10 @@ async function writeSummary(results, mode, authMode) {
         ...results.map(result => [
             result.source || 'target only',
             result.target,
-            result.targetLang || 'auto',
+            result.targetLang || 'auto-detected',
             result.changed ? 'changed' : 'unchanged',
         ]),
     ]);
-    if (mode === 'update') {
-        core.summary.addRaw('\nNext step: commit the changed files, inspect the diff, or use check mode in CI.\n');
-    }
-    else if (changedFiles.length > 0) {
-        core.summary.addRaw('\nNext step: run doloc in update mode and commit the changed target files.\n');
-    }
     await core.summary.write();
 }
 function setOutputs(results, authMode) {
