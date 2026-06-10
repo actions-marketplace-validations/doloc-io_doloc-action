@@ -1,5 +1,5 @@
 name: "doloc i18n Translation"
-description: "Translate XLIFF, JSON, and Android XML localization files with doloc."
+description: "Translate XLIFF, JSON, ARB and Android XML localization files with doloc."
 author: "doloc"
 
 branding:
